@@ -14,11 +14,11 @@ import { cn } from "@/lib/utils"
 import { AvatarProvider, useAvatar } from "@/components/avatar-context"
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, adminOnly: false },
-  { name: "My Files", href: "/dashboard/files", icon: FileText, adminOnly: false },
-  { name: "Permissions", href: "/dashboard/access", icon: Users, adminOnly: false },
+  { name: "Overview", href: "/dashboard", icon: LayoutDashboard, adminOnly: false },
+  { name: "Files", href: "/dashboard/files", icon: FileText, adminOnly: false },
+  { name: "Access Control", href: "/dashboard/access", icon: Users, adminOnly: false },
   { name: "Activity Logs", href: "/dashboard/activity", icon: Activity, adminOnly: true },
-  { name: "Account", href: "/dashboard/settings", icon: Settings, adminOnly: false },
+  { name: "Settings", href: "/dashboard/settings", icon: Settings, adminOnly: false },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

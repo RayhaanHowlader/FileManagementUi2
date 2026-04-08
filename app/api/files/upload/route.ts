@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { v2 as cloudinary } from "cloudinary"
 import { auth } from "@/auth"
 import { connectDB } from "@/lib/mongodb"
-import { File } from "@/lib/models/File"
+import { File as FileModel } from "@/lib/models/File"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
 
     await connectDB()
 
-    const saved = await File.create({
+    const saved = await FileModel.create({
       name: file.name,
       url: result.secure_url,
       publicId: result.public_id,

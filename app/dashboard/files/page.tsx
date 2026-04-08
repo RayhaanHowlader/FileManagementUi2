@@ -353,20 +353,20 @@ export default function FilesPage() {
           <p className="text-muted-foreground">Manage and share your files securely</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
-          {canUpload && (
-            <button onClick={() => setShowUploadModal(true)}
-              className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-white hover:bg-primary/90">
-              <Upload className="h-4 w-4" /><span>Upload Files</span>
-            </button>
-          )}
-          <button onClick={() => { setShowReceiveModal(true); setReceiveOtp(""); setReceiveError(""); setReceivedFile(null) }}
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
-            <Download className="h-4 w-4" /><span>Receive File</span>
-          </button>
           <button onClick={fetchFiles}
             className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
             <RefreshCw className="h-4 w-4" /><span className="hidden sm:inline">Refresh</span>
           </button>
+          <button onClick={() => { setShowReceiveModal(true); setReceiveOtp(""); setReceiveError(""); setReceivedFile(null) }}
+            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+            <Download className="h-4 w-4" /><span>Receive File</span>
+          </button>
+          {canUpload && (
+            <button onClick={() => setShowUploadModal(true)}
+              className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+              <Upload className="h-4 w-4" /><span>Upload Files</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -478,8 +478,8 @@ export default function FilesPage() {
                       {selectedFiles.length === filteredFiles.length && filteredFiles.length > 0 && <Check className="h-3 w-3" />}
                     </button>
                   </th>
+                  <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">Name</th>
                   <th className="hidden px-4 py-3 text-left text-sm font-medium text-muted-foreground md:table-cell">Owner</th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-muted-foreground">File</th>
                   <th className="hidden px-4 py-3 text-left text-sm font-medium text-muted-foreground sm:table-cell">Size</th>
                   <th className="hidden px-4 py-3 text-left text-sm font-medium text-muted-foreground lg:table-cell">Modified</th>
                   <th className="w-12 px-4 py-3 text-right text-sm font-medium text-muted-foreground">Actions</th>
@@ -495,21 +495,13 @@ export default function FilesPage() {
                         {selectedFiles.includes(file._id) && <Check className="h-3 w-3" />}
                       </button>
                     </td>
-                    <td className="hidden px-4 py-3 md:table-cell">
-                      <div className="flex items-center gap-2">
-                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">
-                          {file.ownerName?.charAt(0).toUpperCase() || "?"}
-                        </div>
-                        <span className="text-sm text-muted-foreground truncate max-w-[100px]">{file.ownerName}</span>
-                      </div>
-                    </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3 cursor-pointer" onClick={() => canPreview && handlePreview(file)}>
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-muted">
                           {getFileIcon(file.type)}
                         </div>
                         <div className="min-w-0">
-                          <p className="truncate font-medium hover:underline hover:text-primary">{file.name}</p>
+                          <p className="truncate font-medium hover:underline">{file.name}</p>
                           {file.shared && (
                             <span className="inline-flex items-center gap-1 text-xs text-muted-foreground">
                               <Share2 className="h-3 w-3" /> Shared
@@ -518,6 +510,7 @@ export default function FilesPage() {
                         </div>
                       </div>
                     </td>
+                    <td className="hidden px-4 py-3 text-sm text-muted-foreground md:table-cell">{file.ownerName}</td>
                     <td className="hidden px-4 py-3 text-sm text-muted-foreground sm:table-cell">{formatBytes(file.size)}</td>
                     <td className="hidden px-4 py-3 text-sm text-muted-foreground lg:table-cell">
                       {new Date(file.createdAt).toLocaleDateString()}
