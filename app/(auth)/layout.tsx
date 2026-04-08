@@ -1,6 +1,6 @@
 "use client"
 
-import { Shield } from "lucide-react"
+import { FolderLock } from "lucide-react"
 import Link from "next/link"
 
 export default function AuthLayout({
@@ -16,9 +16,9 @@ export default function AuthLayout({
         <div className="relative z-10 flex flex-col justify-between p-12 w-full">
           <Link href="/" className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-lg bg-background flex items-center justify-center">
-              <Shield className="h-6 w-6 text-foreground" />
+              <FolderLock className="h-6 w-6 text-foreground" />
             </div>
-            <span className="text-xl font-semibold">SecureShare</span>
+            <span className="text-xl font-semibold">VaultDrop</span>
           </Link>
           
           <div className="space-y-6">

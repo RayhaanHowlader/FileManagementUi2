@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
-import { Eye, EyeOff, Shield, Loader2, ShieldCheck, AlertTriangle } from "lucide-react"
+import { Eye, EyeOff, FolderLock, Loader2, ShieldCheck, AlertTriangle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -120,9 +120,9 @@ export default function AdminLoginPage() {
       <div className="lg:hidden flex justify-center">
         <Link href="/" className="flex items-center gap-2">
           <div className="h-10 w-10 rounded-lg bg-foreground flex items-center justify-center">
-            <Shield className="h-6 w-6 text-background" />
+            <FolderLock className="h-6 w-6 text-background" />
           </div>
-          <span className="text-xl font-semibold">SecureShare</span>
+          <span className="text-xl font-semibold">VaultDrop</span>
         </Link>
       </div>
 

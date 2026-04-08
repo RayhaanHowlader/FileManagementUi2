@@ -4,6 +4,7 @@ import { getDb } from "@/lib/db"
 import { connectDB } from "@/lib/mongodb"
 import { File } from "@/lib/models/File"
 import { Share } from "@/lib/models/Share"
+import mongoose from "mongoose"
 
 export async function GET() {
   const session = await auth()
@@ -11,14 +12,17 @@ export async function GET() {
 
   // Always check role from DB directly — never trust stale JWT
   const db = await getDb()
-  const dbUser = await db.collection("users").findOne(
+  // Look up user _id from DB by email to avoid stale JWT id issues
+  const dbUserFull = await db.collection("users").findOne(
     { email: session.user.email },
-    { projection: { role: 1 } }
+    { projection: { _id: 1, role: 1 } }
   )
-  const isAdmin = dbUser?.role === "admin"
+  const isAdmin = dbUserFull?.role === "admin"
+  const userId = dbUserFull?._id  // real ObjectId from DB
+
   await connectDB()
 
-  const fileQuery = isAdmin ? {} : { owner: session.user.id }
+  const fileQuery = isAdmin ? {} : { owner: userId }
 
   const [files, shares, totalUsers] = await Promise.all([
     File.find(fileQuery).sort({ createdAt: -1 }).lean(),

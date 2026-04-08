@@ -345,71 +345,82 @@ export default function FilesPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">Files</h1>
-          <p className="text-muted-foreground">Manage and share your files securely</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <button onClick={fetchFiles}
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
-            <RefreshCw className="h-4 w-4" /><span className="hidden sm:inline">Refresh</span>
-          </button>
-          <button onClick={() => { setShowReceiveModal(true); setReceiveOtp(""); setReceiveError(""); setReceivedFile(null) }}
-            className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
-            <Download className="h-4 w-4" /><span>Receive File</span>
-          </button>
-          {canUpload && (
-            <button onClick={() => setShowUploadModal(true)}
-              className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-              <Upload className="h-4 w-4" /><span>Upload Files</span>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Toolbar */}
-      <div className="flex flex-col gap-4 rounded-lg border border-border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-1 items-center gap-3">
-          <div className="relative flex-1 sm:max-w-xs">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <input type="search" placeholder="Search files..." value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+    <div className="space-y-4">
+      {/* Header + Toolbar combined */}
+      <div className="rounded-xl border border-border bg-card p-4">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-xl font-bold tracking-tight">Files</h1>
+            <p className="text-sm text-muted-foreground">Manage and share your files securely</p>
           </div>
-          <div className="relative">
-            <button onClick={() => setFilterOpen(!filterOpen)}
-              className="inline-flex h-9 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
-              <Filter className="h-4 w-4" /> {filterLabels[filterType]} <ChevronDown className="h-3 w-3" />
+          <div className="flex flex-wrap items-center gap-2">
+            <button onClick={fetchFiles}
+              className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+              <RefreshCw className="h-4 w-4" /><span className="hidden sm:inline">Refresh</span>
             </button>
-            {filterOpen && (
-              <>
-                <div className="fixed inset-0 z-40" onClick={() => setFilterOpen(false)} />
-                <div className="absolute left-0 top-full z-50 mt-2 w-44 rounded-md border border-border bg-popover py-1 shadow-lg">
-                  {Object.entries(filterLabels).map(([key, label]) => (
-                    <button key={key} onClick={() => { setFilterType(key); setFilterOpen(false) }}
-                      className={cn("flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-accent", filterType === key && "text-primary font-medium")}>
-                      {filterType === key ? <Check className="h-3 w-3" /> : <span className="w-3" />}
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </>
+            <button onClick={() => { setShowReceiveModal(true); setReceiveOtp(""); setReceiveError(""); setReceivedFile(null) }}
+              className="inline-flex h-9 items-center gap-1.5 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+              <Download className="h-4 w-4" /><span>Receive File</span>
+            </button>
+            {canUpload && (
+              <button onClick={() => setShowUploadModal(true)}
+                className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">
+                <Upload className="h-4 w-4" /><span>Upload Files</span>
+              </button>
             )}
           </div>
         </div>
-        <div className="flex items-center rounded-md border border-input">
-          <button onClick={() => setViewMode("list")} className={cn("rounded-l-md p-2 transition-colors", viewMode === "list" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-accent/50")}>
-            <List className="h-4 w-4" />
-          </button>
-          <button onClick={() => setViewMode("grid")} className={cn("rounded-r-md p-2 transition-colors", viewMode === "grid" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-accent/50")}>
-            <Grid className="h-4 w-4" />
-          </button>
+
+        {/* Search + filter row */}
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-1 items-center gap-3">
+            <div className="relative flex-1 sm:max-w-xs">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input type="search" placeholder="Search files..." value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-4 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring" />
+            </div>
+            <div className="relative">
+              <button onClick={() => setFilterOpen(!filterOpen)}
+                className="inline-flex h-9 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium hover:bg-accent">
+                <Filter className="h-4 w-4" /> {filterLabels[filterType]} <ChevronDown className="h-3 w-3" />
+              </button>
+              {filterOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setFilterOpen(false)} />
+                  <div className="absolute left-0 top-full z-50 mt-2 w-44 rounded-md border border-border bg-popover py-1 shadow-lg">
+                    {Object.entries(filterLabels).map(([key, label]) => (
+                      <button key={key} onClick={() => { setFilterType(key); setFilterOpen(false) }}
+                        className={cn("flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-accent", filterType === key && "text-primary font-medium")}>
+                        {filterType === key ? <Check className="h-3 w-3" /> : <span className="w-3" />}
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center rounded-md border border-input">
+            <button onClick={() => setViewMode("list")} className={cn("rounded-l-md p-2 transition-colors", viewMode === "list" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-accent/50")}>
+              <List className="h-4 w-4" />
+            </button>
+            <button onClick={() => setViewMode("grid")} className={cn("rounded-r-md p-2 transition-colors", viewMode === "grid" ? "bg-accent text-accent-foreground" : "text-muted-foreground hover:bg-accent/50")}>
+              <Grid className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* File count */}
+      {!loading && filteredFiles.length > 0 && (
+        <div className="flex items-center justify-between px-1">
+          <p className="text-sm text-muted-foreground">{filteredFiles.length} file{filteredFiles.length !== 1 ? "s" : ""}</p>
+          {selectedFiles.length > 0 && (
+            <p className="text-sm font-medium">{selectedFiles.length} selected</p>
+          )}
+        </div>
+      )}
       {/* Bulk actions */}
       {selectedFiles.length > 0 && (
         <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-primary/20 bg-primary/5 p-3">

@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation"
 import { auth } from "@/auth"
 import Link from "next/link"
-import { Shield, Cloud, Lock, Users, FileText, Activity, ArrowRight, CheckCircle2, Database, KeyRound, ShieldCheck, SlidersHorizontal, ScrollText, Share2, Gauge, BadgeCheck, AlertTriangle, Eye, Settings2, MousePointerClick } from "lucide-react"
+import { FolderLock, Cloud, Lock, Users, FileText, Activity, ArrowRight, CheckCircle2, Database, KeyRound, SlidersHorizontal, ScrollText, Share2, Gauge, BadgeCheck, AlertTriangle, Eye, Settings2, MousePointerClick } from "lucide-react"
 
 export default async function LandingPage() {
   const session = await auth()
@@ -14,9 +14,9 @@ export default async function LandingPage() {
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-              <Shield className="h-5 w-5 text-primary-foreground" />
+              <FolderLock className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-semibold tracking-tight font-sans">SecureShare</span>
+            <span className="text-xl font-semibold tracking-tight font-sans">VaultDrop</span>
           </div>
           <nav />
           <div className="flex items-center gap-3">
@@ -54,7 +54,7 @@ export default async function LandingPage() {
                   Sign In
                 </Link>
                 <Link href="/admin" className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-input bg-background px-6 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
-                  <Shield className="h-4 w-4" /> Admin Login
+                  <FolderLock className="h-4 w-4" /> Admin Login
                 </Link>
               </div>
             </div>
@@ -374,11 +374,11 @@ export default async function LandingPage() {
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Shield className="h-4 w-4 text-primary-foreground" />
+                <FolderLock className="h-4 w-4 text-primary-foreground" />
               </div>
-              <span className="font-semibold font-sans">SecureShare</span>
+              <span className="font-semibold font-sans">VaultDrop</span>
             </div>
-            <p className="text-sm text-muted-foreground">2024 SecureShare. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">2024 VaultDrop. All rights reserved.</p>
           </div>
         </div>
       </footer>
