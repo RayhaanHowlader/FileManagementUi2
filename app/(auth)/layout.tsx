@@ -23,10 +23,10 @@ export default function AuthLayout({
           
           <div className="space-y-6">
             <h1 className="text-4xl font-bold leading-tight text-balance">
-              Secure Cloud Data Sharing for Modern Teams
+              Drop files. Share safely. Stay in control.
             </h1>
             <p className="text-lg text-background/70 max-w-md text-pretty">
-              Share files securely with end-to-end encryption, granular access controls, and comprehensive audit logs.
+              VaultDrop gives your team a private, encrypted space to upload, manage, and share files — with OTP verification and full audit trails.
             </p>
             <div className="flex flex-col gap-4 pt-4">
               <div className="flex items-center gap-3">
@@ -35,7 +35,7 @@ export default function AuthLayout({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-background/80">End-to-end encryption</span>
+                <span className="text-background/80">Encrypted file storage & transfer</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-background/10 flex items-center justify-center">
@@ -43,7 +43,7 @@ export default function AuthLayout({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-background/80">Role-based access control</span>
+                <span className="text-background/80">Granular per-user permissions</span>
               </div>
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-background/10 flex items-center justify-center">
@@ -51,7 +51,7 @@ export default function AuthLayout({
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-background/80">OTP-protected sharing</span>
+                <span className="text-background/80">OTP-verified secure sharing</span>
               </div>
             </div>
           </div>
