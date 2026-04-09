@@ -16,6 +16,7 @@ const transporter = nodemailer.createTransport({
   socketTimeout: 15000,
 })
 
+
 export async function sendOtpEmail(to: string, otp: string) {
   await transporter.sendMail({
     from: `"SecureShare" <${process.env.FROM_EMAIL}>`,
