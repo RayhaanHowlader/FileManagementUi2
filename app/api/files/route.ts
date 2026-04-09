@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 import { auth } from "@/auth"
 import { connectDB } from "@/lib/mongodb"
 import { File } from "@/lib/models/File"
+import { getDb } from "@/lib/db"
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -33,8 +34,16 @@ export async function POST(req: NextRequest) {
   const session = await auth()
   if (!session?.user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const userId = session.user.id ?? session.user.email ?? "unknown"
-  const userName = session.user.name ?? session.user.email ?? "Unknown"
+  // Always resolve the real ObjectId from DB — never trust stale JWT id
+  const db = await getDb()
+  const dbUser = await db.collection("users").findOne(
+    { email: session.user.email },
+    { projection: { _id: 1, fullName: 1 } }
+  )
+  if (!dbUser) return NextResponse.json({ error: "User not found" }, { status: 401 })
+
+  const userId = dbUser._id  // real ObjectId
+  const userName = dbUser.fullName ?? session.user.name ?? session.user.email ?? "Unknown"
 
   const formData = await req.formData()
   const file = formData.get("file") as globalThis.File | null
